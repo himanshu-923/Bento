@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bento Interactive</title>
+  <style>
+    :root {
+      --note-color: #fcd77f;
+      --todo-color: #a7e8bd;
+      --password-color: #94c0e9;
+      --settings-color: #d4b5f9;
+      --container-bg: #ffffff;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      --radius: 20px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bento-container {
+      display: flex;
+      background: var(--container-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 4px solid #333;
+      width: 800px;
+      height: 400px;
+    }
+
+    .notes-section {
+      flex: 2;
+      background: var(--note-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-right: 4px solid #333;
+      padding: 30px;
+      font-size: 26px;
+      font-weight: bold;
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .notes-section:hover {
+      transform: scale(1.03);
+      z-index: 2;
+    }
+
+    .features-section {
+      flex: 1;
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .feature {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .feature:last-child {
+      border-bottom: none;
+    }
+
+    .feature:hover {
+      transform: scale(1.05);
+      z-index: 2;
+      box-shadow: var(--shadow);
+    }
+
+    .todo {
+      background: var(--todo-color);
+    }
+
+    .password {
+      background: var(--password-color);
+    }
+
+    .settings {
+      background: var(--settings-color);
+    }
+
+    .locked-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      border-radius: var(--radius);
+    }
+
+    .unlock-form {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      z-index: 2;
+    }
+
+    .unlock-form input {
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .unlock-form button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: none;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="bento-container">
+    <div class="notes-section">
+      <div>
+        <img src="https://img.icons8.com/ios-filled/50/000000/note.png" alt="Notes" style="height: 40px;" /><br />
+        Notes (🍚)
+      </div>
+    </div>
+    <div class="features-section">
+      <div class="feature todo">
+        <img src="https://img.icons8.com/ios-filled/24/000000/todo-list--v1.png" alt="To-Do" style="margin-right: 10px;" />
+        To-Do (🥦🥕🌽)
+      </div>
+      <div class="feature password" id="password-feature">
+        <div class="locked-overlay" id="locked-msg">
+          🔒 Locked <br />
+          <button onclick="unlockPassword()">Unlock</button>
+        </div>
+        <div class="unlock-form" id="unlock-form">
+          <label for="password-input">Enter Password:</label>
+          <input type="password" id="password-input" />
+          <button onclick="submitPassword()">Submit</button>
+        </div>
+        🔐 Password Manager
+      </div>
+      <div class="feature settings">
+        <img src="https://img.icons8.com/ios-filled/24/000000/settings--v1.png" alt="Settings" style="margin-right: 10px;" />
+        Settings ⚙️
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const correctPassword = "bento123";
+    const lockedMsg = document.getElementById("locked-msg");
+    const unlockForm = document.getElementById("unlock-form");
+
+    function unlockPassword() {
+      lockedMsg.style.display = 'none';
+      unlockForm.style.display = 'flex';
+    }
+
+    function submitPassword() {
+      const entered = document.getElementById("password-input").value;
+      if (entered === correctPassword) {
+        lockedMsg.remove();
+        unlockForm.remove();
+      } else {
+        alert("Incorrect password");
+      }
+    }
+  </script>
+</body>
+</html>
