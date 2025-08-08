@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bento - All-in-One Productivity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Bento</h1>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+        
+        <nav class="main-nav">
+            <button class="nav-btn active" data-section="notes">
+                <i class="fas fa-sticky-note"></i>
+                <span>Notes</span>
+            </button>
+            <button class="nav-btn" data-section="todos">
+                <i class="fas fa-tasks"></i>
+                <span>To-Do</span>
+            </button>
+            <button class="nav-btn" data-section="passwords">
+                <i class="fas fa-lock"></i>
+                <span>Passwords</span>
+            </button>
+            <button class="nav-btn" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </button>
+        </nav>
+        
+        <main class="main-content">
+            <!-- Notes Section -->
+            <section class="content-section active" id="notes-section">
+                <div class="section-header">
+                    <h2>Notes</h2>
+                    <button class="add-btn" id="add-note">
+                        <i class="fas fa-plus"></i> Add Note
+                    </button>
+                </div>
+                <div class="notes-container" id="notes-container">
+                    <!-- Notes will be dynamically inserted here -->
+                </div>
+            </section>
+            
+            <!-- To-Do Section -->
+            <section class="content-section" id="todos-section">
+                <div class="section-header">
+                    <h2>To-Do</h2>
+                    <button class="add-btn" id="add-todo">
+                        <i class="fas fa-plus"></i> Add Task
+                    </button>
+                </div>
+                <div class="todos-container" id="todos-container">
+                    <!-- To-do items will be dynamically inserted here -->
+                </div>
+            </section>
+            
+            <!-- Passwords Section -->
+            <section class="content-section" id="passwords-section">
+                <div class="password-auth">
+                    <h2>Password Manager</h2>
+                    <div class="auth-form">
+                        <input type="password" id="master-pin" placeholder="Enter your PIN">
+                        <button id="unlock-passwords">Unlock</button>
+                    </div>
+                </div>
+                <div class="passwords-container" id="passwords-container" style="display: none;">
+                    <div class="passwords-header">
+                        <button class="add-btn" id="add-password">
+                            <i class="fas fa-plus"></i> Add Password
+                        </button>
+                    </div>
+                    <div class="passwords-list" id="passwords-list">
+                        <!-- Password entries will be dynamically inserted here -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Settings Section -->
+            <section class="content-section" id="settings-section">
+                <h2>Settings</h2>
+                <div class="settings-options">
+                    <div class="setting-option">
+                        <label for="export-data">Export Data</label>
+                        <button id="export-data">Export</button>
+                    </div>
+                    <div class="setting-option">
+                        <label for="import-data">Import Data</label>
+                        <input type="file" id="import-data" accept=".json">
+                    </div>
+                    <div class="setting-option">
+                        <label>Dark Mode</label>
+                        <label class="switch">
+                            <input type="checkbox" id="dark-mode-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-option">
+                        <label>Change PIN</label>
+                        <button id="change-pin">Change</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="app-footer">
+            <div class="logo">Bento</div>
+        </footer>
+    </div>
+    
+    <!-- Note Editor Modal -->
+    <div class="modal" id="note-editor-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Edit Note</h3>
+            <input type="text" id="note-title" placeholder="Title">
+            <div class="toolbar">
+                <button class="tool-btn" data-command="bold" title="Bold"><i class="fas fa-bold"></i></button>
+                <button class="tool-btn" data-command="italic" title="Italic"><i class="fas fa-italic"></i></button>
+                <button class="tool-btn" data-command="underline" title="Underline"><i class="fas fa-underline"></i></button>
+                <button class="tool-btn" data-command="insertUnorderedList" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+                <button class="tool-btn" data-command="insertOrderedList" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+            </div>
+            <div class="editor" id="note-content" contenteditable="true"></div>
+            <div class="modal-footer">
+                <button id="save-note">Save</button>
+                <button id="cancel-note">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- To-Do Editor Modal -->
+    <div class="modal" id="todo-editor-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Edit Task</h3>
+            <div class="form-group">
+                <label for="todo-text">Task Description</label>
+                <input type="text" id="todo-text" placeholder="What needs to be done?">
+            </div>
+            <div class="form-group">
+                <label for="todo-due">Due Date</label>
+                <input type="date" id="todo-due">
+            </div>
+            <div class="modal-footer">
+                <button id="save-todo">Save</button>
+                <button id="cancel-todo">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Password Editor Modal -->
+    <div class="modal" id="password-editor-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Edit Password</h3>
+            <div class="form-group">
+                <label for="password-service">Service/Website</label>
+                <input type="text" id="password-service" placeholder="e.g., Google">
+            </div>
+            <div class="form-group">
+                <label for="password-username">Username/Email</label>
+                <input type="text" id="password-username">
+            </div>
+            <div class="form-group">
+                <label for="password-password">Password</label>
+                <div class="password-input-group">
+                    <input type="password" id="password-password">
+                    <button class="generate-password" id="generate-password">Generate</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-password">Save</button>
+                <button id="cancel-password">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Change PIN Modal -->
+    <div class="modal" id="pin-change-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Change PIN</h3>
+            <div class="form-group">
+                <label for="current-pin">Current PIN</label>
+                <input type="password" id="current-pin">
+            </div>
+            <div class="form-group">
+                <label for="new-pin">New PIN</label>
+                <input type="password" id="new-pin">
+            </div>
+            <div class="form-group">
+                <label for="confirm-pin">Confirm New PIN</label>
+                <input type="password" id="confirm-pin">
+            </div>
+            <div class="modal-footer">
+                <button id="save-pin">Save Changes</button>
+                <button id="cancel-pin">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Message Box -->
+    <div class="message-box-overlay" id="message-box-overlay">
+        <div class="message-box-content">
+            <h3 id="message-box-text"></h3>
+            <button id="message-box-ok">OK</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

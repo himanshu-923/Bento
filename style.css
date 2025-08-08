@@ -1,0 +1,674 @@
+:root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #6b8cae;
+    --accent-color: #ff7e5f;
+    --text-color: #333;
+    --bg-color: #f5f7fa;
+    --card-bg: #ffffff;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --border-color: #e0e0e0;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+}
+
+[data-theme="dark"] {
+    --primary-color: #5d8acd;
+    --secondary-color: #7a9cc6;
+    --accent-color: #ff9a7f;
+    --text-color: #f0f0f0;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --border-color: #444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.app-header h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.nav-btn.active {
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+.nav-btn i {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.main-content {
+    flex: 1;
+    margin: 1rem 0;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.add-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.add-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Notes Styling */
+.notes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.note-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    position: relative;
+}
+
+.note-card h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.note-card .note-content {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    max-height: 100px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.note-card .note-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.note-card .note-actions button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.note-card .note-actions button:hover {
+    opacity: 1;
+}
+
+/* To-Do Styling */
+.todos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.todo-item input[type="checkbox"] {
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.todo-item .todo-text {
+    flex: 1;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.todo-item .todo-due {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    margin-left: 1rem;
+}
+
+.todo-item .todo-actions {
+    margin-left: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.todo-item .todo-actions button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.todo-item .todo-actions button:hover {
+    opacity: 1;
+}
+
+/* Password Manager Styling */
+.password-auth {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.auth-form input {
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--secondary-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.auth-form button {
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+}
+
+.passwords-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.passwords-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.password-entry {
+    background-color: var(--card-bg);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.password-entry h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.password-entry .password-row {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.password-entry .password-label {
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.password-entry .password-value {
+    flex: 1;
+    word-break: break-all;
+}
+
+.password-entry .password-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.password-entry .password-actions button {
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.password-entry .password-actions .copy-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.password-entry .password-actions .edit-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.password-entry .password-actions .delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Settings Styling */
+.settings-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.setting-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.setting-option button {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input, 
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--secondary-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.password-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.password-input-group input {
+    flex: 1;
+}
+
+.generate-password {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0 1rem;
+    cursor: pointer;
+}
+
+.toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background-color: var(--bg-color);
+    border-radius: 4px;
+}
+
+.tool-btn {
+    background-color: var(--bg-color);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.tool-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.editor {
+    min-height: 200px;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--card-bg);
+    outline: none;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.modal-footer button {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+}
+
+.modal-footer button:first-child {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.modal-footer button:last-child {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Switch Styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Message Box Styling */
+.message-box-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.message-box-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.message-box-content {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 300px;
+    width: 90%;
+}
+
+.message-box-content h3 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.message-box-content button {
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+}
+
+/* Footer Styling */
+.app-footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notes-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        border-radius: 0;
+        z-index: 10;
+    }
+    
+    .app-container {
+        padding-bottom: 70px;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+    }
+    
+    .nav-btn span {
+        display: none;
+    }
+    
+    .nav-btn i {
+        margin-bottom: 0;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .add-btn {
+        width: 100%;
+    }
+    
+    .todo-item {
+        flex-wrap: wrap;
+    }
+    
+    .todo-item .todo-due {
+        width: 100%;
+        margin-left: 2rem;
+        margin-top: 0.5rem;
+    }
+}
